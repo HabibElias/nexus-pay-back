@@ -1,0 +1,9 @@
+[build]
+# Output binary path
+bin = "tmp/payment-service"
+
+# Build command
+cmd = "go build -buildvcs=false -o tmp/payment-service ./cmd/payment-service"
+
+# Delay after file changes
+delay = 1000

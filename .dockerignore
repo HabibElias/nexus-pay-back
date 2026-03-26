@@ -1,0 +1,17 @@
+.git
+vendor/
+node_modules/
+*.log
+bin/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+coverage.out
+**/*.test
+Dockerfile
+docker-compose.yml
+.env
+_output
+*.out
