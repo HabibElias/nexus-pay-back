@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/HabibElias/nexus-pay-back/internal/domain/entities"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -47,7 +48,7 @@ func firstNonEmpty(values []string) string {
 
 func Migrate() {
 	err := DB.AutoMigrate(
-	// &entities.Todo{},
+		&entities.Payment{},
 	)
 
 	if err != nil {
