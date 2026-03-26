@@ -3,6 +3,7 @@
     "gorm",
     "Habib",
     "godotenv",
-    "joho"
+    "joho",
+    "nexusdb"
   ]
 }

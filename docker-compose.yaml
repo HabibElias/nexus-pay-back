@@ -14,7 +14,7 @@ services:
             - db_data:/var/lib/postgresql/data
 
     payment:
-        image: golang:1.25.0
+        image: golang:1.26.0
         container_name: nexus-payment
         command: sh -c "go install github.com/air-verse/air@latest && /go/bin/air -c .air.toml"
         restart: unless-stopped

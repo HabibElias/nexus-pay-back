@@ -4,31 +4,22 @@ import (
 	"log"
 	"net"
 
-	"github.com/HabibElias/nexus-pay-back/internal/domain/entities"
+	"github.com/HabibElias/nexus-pay-back/internal/config"
 	persistence "github.com/HabibElias/nexus-pay-back/internal/infrastructure/persistence/gorm"
 	grpc_handlers "github.com/HabibElias/nexus-pay-back/internal/presentation/grpc/handlers"
 	"github.com/HabibElias/nexus-pay-back/internal/services"
 	pb "github.com/HabibElias/nexus-pay-back/proto/pb/proto"
 	"google.golang.org/grpc"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func main() {
-	// 1. Initialize DB (SQLite for Day 1/2)
-	db, err := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("failed to connect database: %v", err)
-	}
+	cfg := config.LoadConfig()
 
-	// Auto-migrate the domain entities
-	err = db.AutoMigrate(&entities.Payment{})
-	if err != nil {
-		log.Fatalf("failed to migrate database: %v", err)
-	}
+	// setup database
+	config.SetupDatabase(*cfg)
 
 	// 2. Initialize layers
-	repo := persistence.NewPaymentRepositoryImpl(db)
+	repo := persistence.NewPaymentRepositoryImpl(config.DB)
 	service := services.NewPaymentService(repo)
 	handler := grpc_handlers.NewHandler(service)
 
